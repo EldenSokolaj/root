@@ -11,9 +11,13 @@ Setup
     And your done!
 
 Usage:
-  
-  root $command (arguments)
+    
+    root $command (arguments)
 
-Disclaimer: Probably less convientent then just using sudo, and I'm not sure if it is safe or not. So just don't use it.
+Disclaimer
+    
+    Probably less convientent then just using sudo, and I'm not sure if it is safe or not. So just don't use it.
 
-Help: If you see a security flaw, or happen to know how to get the suid of the process, please let me know.
+Help
+    
+    If you see a security flaw, or happen to know how to get the suid of the process, please let me know.
