@@ -16,7 +16,7 @@ Usage:
 
 Disclaimer
     
-    Probably less convientent then just using sudo, and I'm not sure if it is safe or not. So just don't use it.
+    I'm not sure if it is safe or not. So just don't use it.
     Also, unlike sudo there is no concept of "sudoers", so just any user can run commands as root...
     I am planning on fixing that soon, but for now, say good bye to any sense of security if you use this program
 
