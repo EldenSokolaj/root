@@ -5,7 +5,7 @@ Will, of course, only work on linux.
 
 Setup
     
-    Compile with "gcc root.c -o root -lcrypt -D_GNU_SOURCE"
+    Compile, possibly with "gcc root.c -o root -lcrypt"
     Then make sure to set the setuid bit first
         - possibly with running "chown root root root" then "chmod +s root" as the user root)
     Then either set an alias in .bashrc of move the file to /bin/root
