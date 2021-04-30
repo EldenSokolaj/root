@@ -127,7 +127,7 @@ int main(int argc, char *argv[]){
             exit(1);
         }
 
-        //turn of terminal echo
+        //turn off terminal echo
         char terminal_echo = 1;
         struct termios state;
         if( tcgetattr(STDIN_FILENO, &state) == -1 ){
