@@ -159,7 +159,11 @@ int main(int argc, char *argv[]){
 
         //check that the login is valid, and if so run the command with arguments
         if(checkLogin(user, pass) == 0){
-            execvp(argv[1], &argv[1]);
+            if( setuid(0) == 0 ){
+                execvp(argv[1], &argv[1]);
+            } else {
+                puts("Failed to setuid");
+            }
         } else {  
             puts("[Login Failed]");
         }
