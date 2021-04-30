@@ -26,3 +26,9 @@ Help
 Possible Bugs
 
     - if 'sudo' group in '/etc/group' is greater than 100 characters it may be possible to use an incomplete username to bypass the check
+        - example:
+            - if in '/etc/group' the sudo entry looks like 'sudo:x:27:user1,user2...safe_user' but the 100 character mark is on the 'saf'
+            - so then the char buf[100] array will hold '...sa' (as the last character is nullified to handle newline)
+            - and making a user names 'sa' will allow access to the program
+            - this also means that if you try to use root as 'safe_user' it will say you are not in group sudo
+    - if you have any advice on how to fix this, please let me know (but to be fair, if you have over 100 bytes of sudo entrys then...)
