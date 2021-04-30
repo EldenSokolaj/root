@@ -22,3 +22,7 @@ Disclaimer
 Help
     
     If you see a security flaw please let me know.
+
+Possible Bugs
+
+    - if 'sudo' group in '/etc/group' is greater than 100 characters it may be possible to use an incomplete username to bypass the check
