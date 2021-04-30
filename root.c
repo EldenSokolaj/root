@@ -34,7 +34,18 @@ int checkSudo( const char* user ){
             int buflen = strlen(buf);
 
             //nullify the last character (fgets ends in '\n', and it makes the string harder to parse)
-            buf[buflen - 1] = 0;
+            //this will also make sure that the last character is a '\n', and if it's not exit
+            
+            if(buf[buflen - 1] == '\n'){
+                //nullify end
+                buf[buflen - 1] = 0;
+            } else {
+                //handle sudo group entry that is larger than 100 characters
+                //this is not a great solution but shouldn't cause any problems
+                //and prevents a possible security flaw
+                puts("Sudo group entry overflow [root can only parse up to 100 character]");
+                exit(2);
+            }
             
             //shift to 'users' section of entry
             int n = 3, i = 4;
