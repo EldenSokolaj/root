@@ -8,7 +8,7 @@ Setup
     Compile, possibly with "gcc root.c -o root -lcrypt"
     Then make sure to set the setuid bit first
         - possibly with running "chown root:root root" then "chmod +s root" as the user root)
-    Then either set an alias in .bashrc of move the file to /bin/root
+    Then either set an alias in .bashrc or move the file to /bin/root
 
 Usage:
     
