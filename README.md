@@ -16,7 +16,7 @@ Usage:
 
 Disclaimer
     
-    I'm not sure if it is safe or not. So just don't use it.
+    I'm not sure if it is safe or not. So...
     Only users in sudo group will be able to use command
 
 Help
