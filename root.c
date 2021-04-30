@@ -6,6 +6,7 @@
 #include <unistd.h>
 #include <sys/types.h>
 #include <stdlib.h>
+#include <termios.h>
 
 // @return 0 - user is in group 'sudo', otherwise no
 int checkSudo( const char* user ){
@@ -65,6 +66,8 @@ int checkSudo( const char* user ){
         }
 
     }
+
+    return 1;
 }
 
 // @return 0 - password is correct, otherwise no
@@ -115,11 +118,34 @@ int main(int argc, char *argv[]){
             exit(1);
         }
 
+        //turn of terminal echo
+        char terminal_echo = 1;
+        struct termios state;
+        if( tcgetattr(STDIN_FILENO, &state) == -1 ){
+            puts("Warning: Unable to turn off character echo");
+        } else {
+            terminal_echo = 0;
+            state.c_lflag ^= ECHO;
+            if( tcsetattr(STDIN_FILENO, TCSANOW, &state) == -1 ){
+                terminal_echo = 1;
+                puts("Warning: Unable to turn off character echo");
+            }
+        }
+
         //get password and nullify ending newline
         printf("Enter password for user '%s': ", user);
         fgets(pass, 50, stdin);
+        putchar(10);
         if(strlen(pass) != 0){
             pass[strlen(pass) - 1] = 0;
+        }
+        
+        //turn back on terminal echo
+        if(!terminal_echo){
+            state.c_lflag ^= ECHO;
+            if( tcsetattr(STDIN_FILENO, TCSANOW, &state) == -1 ){
+                puts("Warning: Unable to restore character echo");
+            }
         }
 
         //check that the login is valid, and if so run the command with arguments
