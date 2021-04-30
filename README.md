@@ -16,9 +16,9 @@ Usage:
 
 Disclaimer
     
-    I'm not sure if it is safe or not. So...
+    I'm not sure if it is safe or not, so use at your own risk.
     Only users in sudo group will be able to use command
 
 Help
     
-    If you see a security flaw, or happen to know how to get the suid of the process, please let me know.
+    If you see a security flaw please let me know.
