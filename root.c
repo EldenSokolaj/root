@@ -30,14 +30,23 @@ int checkSudo( const char* user ){
         //look for 'sudo' entry [ example 'sudo:x:27:user1,user2' ]
         if(strncmp(buf, "sudo", 4) == 0){
 
+            //save buffer length (useful in a few places)
+            int buflen = strlen(buf);
+
             //nullify the last character (fgets ends in '\n', and it makes the string harder to parse)
-            buf[strlen(buf) - 1] = 0;
+            buf[buflen - 1] = 0;
             
             //shift to 'users' section of entry
             int n = 3, i = 4;
-            while(n){
+            while(n && i < buflen){
                 if(buf[i] == ':'){ n--; }
                 i++;
+            }
+
+            //check if something went horribly wrong
+            if(i == buflen){
+                puts("Reading file '/etc/group' went horribly wrong");
+                exit(1);
             }
 
             //loop through users to check for user to verify
