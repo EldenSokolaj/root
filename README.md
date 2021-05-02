@@ -26,4 +26,4 @@ Help
 Possible Bugs
 
     - if 'sudo' group in '/etc/group' is greater than 100 characters program will force exit
-            - if you have any advice on a safe way to handle this instead of exiting, please let me know
+            - patch sample code in sudo.sample (needs to be added, just I havn't done so yet)
