@@ -22,3 +22,7 @@ Disclaimer
 Help
     
     If you see a security flaw please let me know.
+
+Possible Bugs
+    
+    - A username over 100 characters in group sudo may cause an infinite loop
