@@ -8,6 +8,9 @@
 #include <stdlib.h>
 #include <termios.h>
 
+#define true 1
+#define false 0
+
 // @return 0 - user is in group 'sudo', otherwise no
 int checkSudo( const char* user ){
 
@@ -33,6 +36,9 @@ int checkSudo( const char* user ){
             //save buffer length (useful in a few places)
             int buflen = strlen(buf);
 
+            //variable to hold if we read the complete sudo entry, or only part of it
+            int EOL = true;
+
             //nullify the last character (fgets ends in '\n', and it makes the string harder to parse)
             //this will also make sure that the last character is a '\n', and if it's not exit
             
@@ -41,10 +47,7 @@ int checkSudo( const char* user ){
                 buf[buflen - 1] = 0;
             } else {
                 //handle sudo group entry that is larger than 100 characters
-                //this is not a great solution but shouldn't cause any problems
-                //and prevents a possible security flaw
-                puts("Sudo group entry overflow [root can only parse up to 100 character]");
-                exit(2);
+                EOL = false;
             }
             
             //shift to 'users' section of entry
@@ -68,8 +71,28 @@ int checkSudo( const char* user ){
                 
                 if(split == NULL){
                     
-                    //last entry (so return the result of a check if user == last entry)
-                    return strcmp(user, loc);
+                    //check if this is the 'real' last entry
+                    if(EOL){
+
+                        //last entry (so return the result of a check if user == last entry)
+                        return strcmp(user, loc);
+                    
+                    } else {
+                        
+                        //read next 100 characters from line
+                        int listlen = strlen(loc);
+                        strncpy(buf, loc, listlen);
+                        fgets(&buf[listlen], 100 - listlen, groups);
+                        buflen = strlen(buf);
+                        if(buf[buflen - 1] != 10){
+                            EOL = false;
+                        } else {
+                            buf[buflen - 1] = 0;
+                            EOL = true;
+                        }
+                        loc = buf;
+
+                    }
 
                 } else {
                     
@@ -86,7 +109,7 @@ int checkSudo( const char* user ){
         }
 
     }
-
+    
     return 1;
 }
 
